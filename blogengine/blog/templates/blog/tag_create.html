@@ -9,9 +9,18 @@
 
 <form action="{% url 'tag_create_url' %}" method="POST">
     {% csrf_token %}
-    {{ form.title }}
-    {{ form.slug }}
-
+    {% for field in form %}
+        <div class="form-group">
+            {% if field.errors %}
+                <div class="alert alert-danger">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+            {{ field.label }}
+            {{ field }}
+        </div>
+    {% endfor %}
+        <br>
     <button type="submit" class="btn btn-primary">Create Tag</button>
 </form>
 

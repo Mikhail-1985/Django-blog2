@@ -2,12 +2,19 @@ from django import forms
 from .models import *
 from django.core.exceptions import ValidationError
 
-class TagForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    slug = forms.CharField(max_length=50)
+class TagForm(forms.ModelForm):
+    #title = forms.CharField(max_length=50)
+    #slug = forms.CharField(max_length=50)
 
-    title.widget.attrs.update({'class': 'form-control'})
-    slug.widget.attrs.update({'class': 'form-control'})
+    #title.widget.attrs.update({'class': 'form-control'})
+    #slug.widget.attrs.update({'class': 'form-control'})
+    class Mets:
+        model = Tag
+        fields = ['title', 'slug']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'slug': forms.TextInput(attrs={'class': 'form-control'})
+        }
 
 
     def clean_slug(self):
@@ -18,5 +25,5 @@ class TagForm(forms.Form):
             raise ValidationError('Такой тэг/slug уже есть!')
         return new_slug
 
-    def save(self):
-        new_tag = Tag.objects.create(title=self.cleaned_data['title'], slug=self.cleaned_data['slug'])
+    #def save(self):
+    #    new_tag = Tag.objects.create(title=self.cleaned_data['title'], slug=self.cleaned_data['slug'])

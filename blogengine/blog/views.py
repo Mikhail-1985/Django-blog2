@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View
 from .models import *
 from .utils import ObjectDetailMixin
-from .forms import TagForm
+from .forms import TagForm, PostForm
 
 
 def posts_list(request):
@@ -13,6 +13,19 @@ def posts_list(request):
 class PostDetail(ObjectDetailMixin, View):
     model = Post
     template = 'blog/post_detail.html'
+
+
+class PostCreate(View):
+    def get(self, request):
+        form = PostForm()
+        return render(request, 'blog/post_create.html', context={'form': form})
+
+    def post(self, request):
+        bound_form = PostForm(request.POST)
+        if bound_form.is_valid():
+            bound_form.save()
+            return redirect('posts_list_url')
+        return render(request, 'blog/post_create.html', context={'form': bound_form})
     
 
 class TagCreate(View):

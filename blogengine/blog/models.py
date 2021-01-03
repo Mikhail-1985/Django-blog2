@@ -40,6 +40,8 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['-date_pub'] # сортировка постов по дате публикации
 
 class Tag(models.Model):
 
@@ -60,3 +62,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+
+    class Meta:
+        ordering = ['title'] # сортировка тэгов по алфавиту

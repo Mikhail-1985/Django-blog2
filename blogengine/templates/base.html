@@ -74,10 +74,14 @@
     </div>
 </div>
 
-<div class="admin-panel align-item-center" >
-  <a href="/admin" class="btn btn-outline-primary">Admin</a>
-  {% block admin-panel %}{% endblock %}
-</div>
+{% if request.user.is_authenticated and request.user.is_staff%}
+  <div class="admin-panel align-item-center" >
+    <a href="/admin" class="btn btn-outline-primary">Admin</a>
+    {% block admin-panel %}{% endblock %}
+  </div>
+{% endif %}
+
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

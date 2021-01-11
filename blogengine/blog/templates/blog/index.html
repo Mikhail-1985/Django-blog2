@@ -8,7 +8,7 @@
     <h1 class="mb-5">
         Заголовок поста
     </h1>
-    {% for post in posts.object_list  %}
+    {% for post in page_object.object_list  %}
         {% include 'blog/includes/post_card_template.html' %}        
     {% endfor %}
 {% endblock %}
